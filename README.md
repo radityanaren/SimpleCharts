@@ -2,7 +2,7 @@
 
 > Zero dependency, canvas rendered financial charting, built entirely from scratch.
 
-SimpleCharts is a fast browser based trading chart that renders everything on a raw HTML5 Canvas. It can load  Historical data as well as streams live market data from WebSockets/SSE, supports multiple asset classes, and ships a fully modular system so you can plug in any data source, indicator, or  any Python strategy you want.
+SimpleCharts is a fast browser based trading chart that renders everything on a raw HTML5 Canvas. It can load  Historical data as well as streams live market data from WebSockets/SSE, supports multiple asset classes, and ships a fully modular system so you can plug in any data source, indicator, or any Python strategy you want.
 
 ![SimpleCharts preview](preview.png)
 🌐 : [Live Demo](https://SimpleCharts.github.io/)

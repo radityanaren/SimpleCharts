@@ -1,0 +1,44 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install & Build (with correct base)
+        env:
+          CI: true
+        run: |
+          # repo name (owner/repo -> extract repo)
+          REPO_NAME=${GITHUB_REPOSITORY##*/}
+          OWNER=${GITHUB_REPOSITORY_OWNER}
+          if [ "$REPO_NAME" = "$OWNER.github.io" ]; then
+            BASE='/'
+          else
+            BASE='/'"$REPO_NAME"'/'
+          fi
+          echo "Building with base=$BASE"
+          npm ci
+          npm run build -- --base "$BASE"
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v3
+
+      - name: Upload artifact for Pages
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: ./dist
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v1
